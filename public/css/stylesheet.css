@@ -1,0 +1,231 @@
+#round{
+  
+  display: block;
+  width:80%;
+  height:80%;
+  background-color:#3c2050;
+  color: white;
+  padding: 14px 20px;
+  margin: 0px 10px 8px 10px;
+  border: 5px solid #FFFFFF; 
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 999999;  
+
+}
+
+#round:hover{
+  background-color:#b4a9cb; 
+}
+
+#roundPosition {
+  position: fixed;
+  display: block;
+  width: 15%;
+  height: 15%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  cursor: pointer;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#player1Score {
+  z-index: 999999;
+  cursor: pointer;
+  position: fixed;
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:xx-large;
+  color:#FFFFFF;
+}
+
+#player2Score {
+  z-index: 999999;
+  cursor: pointer;
+  position: fixed;
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:xx-large;
+  color:#FFFFFF;
+}
+
+#waitScreen{
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.4);
+  z-index: 999999;
+  cursor: pointer;
+}
+
+#waitscreenPosition{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#waitScreen2{
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.4);
+  z-index: 999999;
+  cursor: pointer;
+}
+
+#waitscreenPosition2{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#timerElm{
+  z-index: 999999;
+  cursor: pointer;
+  position: fixed;
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 7%;
+  left: 85%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:xx-large;
+  color:#FFFFFF;
+}
+
+#timerPosition{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+#overPosition{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#gameOver{
+  z-index: 999999;
+  cursor: pointer;
+  position: fixed;
+  display: none;
+  margin: 0;
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:xx-large;
+  color:#ff0000;
+}
+
+#gameWin{
+  z-index: 999999;
+  cursor: pointer;
+  position: fixed;
+  display: none;
+  margin: 0;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:xx-large;
+  color:#35ec35;
+}
+
+#gameLose{
+  z-index: 999999;
+  cursor: pointer;
+  position: fixed;
+  display: none;
+  margin: 0;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:xx-large;
+  color:#ff0000;
+}
+
+#text{
+  cursor: pointer;
+
+  display: block;
+
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  
+  color: #ffffff;
+}
+
+a:link{
+  color: #ffffff;
+}
+
+a:visited{
+  color: #ffffff;
+}
+
+a:hover{
+  color: #fe287c;
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Game: Player 2</title>
+        <meta charset="utf-8" />
+        <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+        <script src ="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="/css/stylesheet.css">
+    </head>
+
+    <body>
+
+        <!-- Start round button-->
+        <div id="roundPosition">
+            <div class="center">
+                <button id="round">Start Round</button>
+            </div>
+        </div>
+
+        <!-- Text on screen-->
+        <div id ="player2Score">Score: 0</div>
+
+        <div class="waitscreenPosition2">
+            <div id ="waitScreen2"></div>
+        </div>
+
+        <div class = "timerPosition">
+            <div id ="timerElm">Time: 100</div>
+        </div>
+
+        <div class = "overPosition">
+            <div id ="gameOver"> Game Over</div>
+        </div>
+
+        <div class = "overPosition">
+            <div id ="gameWin"> Player 2 wins!</div>
+        </div>
+
+        <div class = "overPosition">
+            <div id ="gameLose"> Player 2 loses!</div>
+        </div>
+
+        <a-scene background="color:#2a282b;">
+
+            <!-- Environment controls -->
+            <a-entity camera wasd-controls look-controls position="0 1.6 0"> 
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+            </a-entity>
+
+            <!-- Creating ring-->
+            <a-entity id = "ring2" geometry="primitive: ring; radiusInner: 3; radiusOuter: 4" position = "0, 3, -9"
+                      material="side: double; color:white">
+            </a-entity>
+
+            <!-- Creating buttons infront of user -->
+            <a-entity id="blue_button2">
+                <a-entity class="button interactive" position="-0.75 0.9 -1.3" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:#1fe4f4"
+                          animation__mouseenter="property:material.color; type:color; to:#02afbb; startEvents:mouseenter; dur:200"
+                          animation__mouseleave="property:material.color; type:color; to:#1fe4f4; startEvents:mouseleave; dur:200"
+                          animation__click="property:position; from:-0.75 0.85 -1.3; to:-0.75 0.9 -1.3; startEvents:click; dur:300"
+                          shadow></a-entity>
+            </a-entity>    
+      
+            <a-entity id="yellow_button2">
+                <a-entity class="button interactive" position="-0.25 0.9 -1.3" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:#f6de00"
+                          animation__mouseenter="property:material.color; type:color; to:#cebb17; startEvents:mouseenter; dur:200"
+                          animation__mouseleave="property:material.color; type:color; to:#f6de00; startEvents:mouseleave; dur:200"
+                          animation__click="property:position; from:-0.25 0.85 -1.3; to:-0.25 0.9 -1.3; startEvents:click; dur:300"
+                          shadow></a-entity>
+            </a-entity>
+     
+            <a-entity id="pink_button2">         
+                <a-entity class="button interactive" position="0.25 0.9 -1.3" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:#fe287c"
+                          animation__mouseenter="property:material.color; type:color; to:#ce1b61; startEvents:mouseenter; dur:200"
+                          animation__mouseleave="property:material.color; type:color; to:#fe287c; startEvents:mouseleave; dur:200"
+                          animation__click="property:position; from:0.25 0.85 -1.3; to:0.25 0.9 -1.3; startEvents:click; dur:300"
+                          shadow></a-entity>
+            </a-entity>   
+ 
+            <a-entity id ="purple_button2">
+                <a-entity class="button interactive"  position="0.75 0.9 -1.3" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:#7028cf"
+                          animation__mouseenter="property:material.color; type:color; to:#420b83; startEvents:mouseenter; dur:200"
+                          animation__mouseleave="property:material.color; type:color; to:#7028cf; startEvents:mouseleave; dur:200"
+                          animation__click="property:position; from:0.75 0.85 -1.3; to:0.75 0.9 -1.3; startEvents:click; dur:300"
+                          shadow></a-entity>
+            </a-entity>
+
+            <!-- Platform for buttons to stand on -->
+            <a-entity position="0 0.3 -1.3" geometry="primitive:box; width:2.5; depth:1; height:1.1;" material="color:white" shadow></a-entity>
+
+            <!-- Creating banner objects -->
+            <a-plane position="0 -0.95 -5.6" rotation = "-90 0 0" width="5" height="12" color="#8bf3c2"></a-plane>
+            <a-cylinder position ="1.3 0.5 -7" rotation="0 45 0" radius = "0.13" height = "4.5" depth ="0.2" color="#fe287c"></a-cylinder>
+            <a-cylinder position ="-1.3 0.5 -7" rotation="0 45 0" radius = "0.13" height = "4.5" depth ="0.2" color="#fe287c"></a-cylinder>
+            
+            <!-- Creating banner text -->
+            <a-text id="text2" value ="White" position = "-0.5 2.2 -6.9" color ="black" width="8"> </a-text>
+            <a-box id="textBanner2" position ="0.01 2.2 -7" rotation ="0 0 0" width="2.6" height ="1" depth="0.1" color ="white"></a-box>
+
+        </a-scene>
+
+        <script>
+
+            // intializing values
+            start = 0; 
+            player2Score = 0;
+
+            // creating a timer of 1000 seconds
+            let timeElm = document.getElementById('timerElm');
+            let timer = function(x) {
+                if(x === -1) {
+                socket.emit('player2WaitScreen2On');
+                socket.emit('gameOver');
+                        
+                    return x;
+                }
+                timeElm.innerHTML = "Time: "+ x;
+                return setTimeout(() => {timer(--x)}, 1000);
+            }
+
+            // function to get a random color
+            const randomColor = function(){
+                var colorsArray = ['#1fe4f4','#f6de00','#fe287c','#7028cf'];
+                var randomColor = colorsArray[Math.floor(Math.random()*colorsArray.length)];
+
+                return randomColor;
+            }
+
+            // function to get a random color text for banner 
+            const randomText = function(){
+                var textArray = ['Blue','Yellow','Pink','Purple'];
+                var randomText = textArray[Math.floor(Math.random()*textArray.length)];
+
+                return randomText;
+            }
+ 
+            let socket = io();
+
+            // if blue button is pressed change color
+            document.querySelector('#blue_button2').querySelector('.button').addEventListener('click', function(){
+                socket.emit('blue2');
+            });
+
+            // if yellow button is pressed change color     
+            document.querySelector('#yellow_button2').querySelector('.button').addEventListener('click', function(){
+                socket.emit('yellow2');
+            });
+
+            // if pink button is pressed change color
+            document.querySelector('#pink_button2').querySelector('.button').addEventListener('click', function(){
+                socket.emit('pink2');
+            });
+
+            // if purple button is pressed change color
+            document.querySelector('#purple_button2').querySelector('.button').addEventListener('click', function(){
+                socket.emit('purple2');
+            });
+            
+            // if start round button is pressed start ring sequence of colors
+            document.querySelector('#round').addEventListener('click', function(){
+                socket.emit('ringSequence');
+            });
+
+            // function for when ring colors change, intialize player 1 and 2's color sequence
+            socket.on('ring_play_sequence', function(data){
+                player1ColorArray = [];
+                player2ColorArray = [];
+                socket.emit('player2WaitScreen2On');
+                start += 1;
+                if (start === 1){
+                    timer(100);         //starting timer for 100 seconds
+                }
+            });
+
+            // function for when ring colors change, get the colors and store them in array 
+            socket.on('ring_color_change', function(data){
+                let colorStr= data; 
+                document.querySelector('#ring2').setAttribute('material', {color:colorStr});
+                color = document.getElementById("ring2").getAttribute('material').color;
+                player1ColorArray.push(color);  
+            });
+
+            // funtion to compare player 1 color array with player 2 color array
+            socket.on('ring_color_change2', function(data){
+                let colorStr= data; 
+                document.querySelector('#ring2').setAttribute('material', {color:colorStr});  // when color buttons are pressed, ring color is changed for visual feedback
+
+                color = document.getElementById("ring2").getAttribute('material').color;
+                player2ColorArray.push(color);                // storing the colors the player presses into an array
+
+                if (player1ColorArray.length === player2ColorArray.length){                                  // when color arrays are the same length
+                        if (JSON.stringify(player1ColorArray) === JSON.stringify(player2ColorArray)){       // check if the array is the same                        
+                            player2Score +=10;                                                              // increase in score
+                            document.getElementById("player2Score").innerHTML = "Score: " + player2Score;
+
+                            if (player2Score === 50) {       // checking if goal score is reached
+                                  socket.emit('player2Win');
+                            }
+                        }               
+                }
+            });
+
+            // function to turn off player 2 screen overlay
+            socket.on('player2_wait_screenOff', function(data){
+                document.querySelector('#waitScreen2').style.display='none';
+            });   
+
+            // function to turn on player 2 screen overlay
+            socket.on('player2_wait_screenOn', function(data){
+                document.querySelector('#waitScreen2').style.display='block';
+            });   
+
+            // function to randomly change the banner and banner text
+            socket.on('player2_banner', function(data){
+                color = randomColor();
+                text = randomText();
+                document.querySelector('#textBanner2').setAttribute('color', color);
+                document.querySelector('#text2').setAttribute('value', text);
+            });
+
+            // function to display a game over message
+            socket.on('game_Over', function(data){
+                document.querySelector('#gameOver').style.display='block';    
+            });     
+
+            // function to display a lose message
+            socket.on('player1_Win', function(data){
+                document.querySelector('#waitScreen2').style.display='block';
+                document.querySelector('#gameLose').style.display='block';
+            });     
+
+            // function to display a win message
+            socket.on('player2_Win', function(data){
+            document.querySelector('#waitScreen2').style.display='block';
+                document.querySelector('#gameWin').style.display='block';
+            });   
+            
+        </script>
+    </body>
+</html>
